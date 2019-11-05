@@ -1,0 +1,10 @@
+---
+- name: Skel profiles included
+  include_tasks: "{{ skel }}.yml"
+  loop:
+    - www
+  loop_control:
+    loop_var: skel
+  tags:
+    - skel
+...
