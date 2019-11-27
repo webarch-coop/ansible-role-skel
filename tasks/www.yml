@@ -33,6 +33,7 @@
     - .cache
     - .composer
     - .config
+    - .console
     - .drush
     - .git
     - .gnupg
