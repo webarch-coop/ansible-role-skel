@@ -5,6 +5,7 @@
     - www
   loop_control:
     loop_var: skel
+    label: "{{ skel }}"
   tags:
     - skel
 ...

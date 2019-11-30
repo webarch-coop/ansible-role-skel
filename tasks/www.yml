@@ -8,8 +8,8 @@
 
 - name: "Skel {{ skel }} files in place"
   copy:
-    src: "files/skel.d/{{ skel }}/{{ item }}"
-    dest: "/usr/local/etc/skel.d/{{ skel }}/{{ item }}"
+    src: "files/skel.d/{{ skel }}/{{ file }}"
+    dest: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
     owner: root
     group: root
     mode: 0600
@@ -18,17 +18,20 @@
     - .bashrc
     - .profile
     - .vimrc
+  loop_control:
+    loop_var: file
+    label: "{{ file }}"
   tags:
     - skel
 
 - name: "Skel {{ skel }} private directories present"
   file:
-    path: "/usr/local/etc/skel.d/{{ skel }}/{{ item }}"
+    path: "/usr/local/etc/skel.d/{{ skel }}/{{ dir }}"
     state: directory
     owner: root
     group: root
     mode: 0700
-  with_items:
+  loop:
     - .ansible
     - .cache
     - .composer
@@ -49,23 +52,29 @@
     - bin
     - private
     - tmp
+  loop_control:
+    loop_var: dir
+    label: "{{ dir }}"
   tags:
     - skel
 
 - name: "Skel {{ skel }} files touched"
   file:
-    path: "/usr/local/etc/skel.d/{{ skel }}/{{ item }}"
+    path: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
     state: touch
     owner: root
     group: root
     mode: 0600
     modification_time: preserve
     access_time: preserve
-  with_items:
+  loop:
     - .bash_history
     - .mysql/history
     - .selected_editor
     - .yarnrc
+  loop_control:
+    loop_var: file
+    label: "{{ file }}"
   tags:
     - skel
 
