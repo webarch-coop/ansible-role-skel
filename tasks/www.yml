@@ -16,6 +16,7 @@
   loop:
     - .bash_logout
     - .bashrc
+    - .nanorc
     - .profile
     - .vimrc
   loop_control:
