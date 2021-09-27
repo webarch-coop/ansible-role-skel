@@ -3,6 +3,7 @@
   include_tasks: "{{ skel }}.yml"
   loop:
     - www
+    - xen
   loop_control:
     loop_var: skel
     label: "{{ skel }}"
