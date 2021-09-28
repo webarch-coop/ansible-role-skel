@@ -24,6 +24,21 @@
   tags:
     - skel
 
+- name: "Skel {{ skel }} private directories present"
+  file:
+    path: "/usr/local/etc/skel.d/{{ skel }}/{{ dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  loop:
+    - .ssh
+  loop_control:
+    loop_var: dir
+    label: "{{ dir }}"
+  tags:
+    - skel
+
 - name: "Skel {{ skel }} files touched"
   file:
     path: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
