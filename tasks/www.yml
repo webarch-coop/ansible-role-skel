@@ -8,7 +8,7 @@
         state: directory
         owner: root
         group: root
-        mode: 0755
+        mode: "0755"
 
     - name: "Skel {{ skel }} private directories present"
       file:
@@ -16,7 +16,7 @@
         state: directory
         owner: root
         group: root
-        mode: 0700
+        mode: "0700"
       loop:
         - .ansible
         - .cache
@@ -47,7 +47,7 @@
         dest: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
         owner: root
         group: root
-        mode: 0600
+        mode: "0600"
       loop:
         - .bash_logout
         - .bashrc
@@ -66,7 +66,7 @@
         state: touch
         owner: root
         group: root
-        mode: 0600
+        mode: "0600"
         modification_time: preserve
         access_time: preserve
       loop:
