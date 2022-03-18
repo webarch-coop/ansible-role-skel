@@ -72,6 +72,7 @@
       loop:
         - .bash_history
         - .mycli-audit.log
+        - .mycli-history
         - .mycli.log
         - .mysql/history
         - .selected_editor
