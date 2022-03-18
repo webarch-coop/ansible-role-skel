@@ -34,7 +34,6 @@
         - .vim
         - .wp-cli
         - .yarn
-        - backups
         - bin
         - private
         - tmp
