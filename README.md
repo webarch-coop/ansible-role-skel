@@ -6,9 +6,7 @@ An Ansible role to add additional skel profiles, there is one [default variable]
 
 | Variable name        | Default value    | Comment                      |
 |----------------------|------------------|------------------------------|
-| `skel_profiles`      | - `www`          | The skel profiles to install |
-|                      | - `xen`          |                              | 
-|----------------------|------------------|------------------------------|
+| `skel_profiles`      | `www`, `xen`     | The skel profiles to install |
 
 The primary URL of this repo is [`https://git.coop/webarch/skel`](https://git.coop/webarch/skel) however it is also [mirrored to GitHub](https://github.com/webarch-coop/ansible-role-skel) and [available via Ansible Galaxy](https://galaxy.ansible.com/chriscroome/skel).
 
