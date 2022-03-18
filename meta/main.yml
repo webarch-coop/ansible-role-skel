@@ -16,7 +16,7 @@ galaxy_info:
         - stretch
     - name: ubuntu
       versions:
-        - jammy
+        # - jammy
         - focal
         - bionic
         - xenial
