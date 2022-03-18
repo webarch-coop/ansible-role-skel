@@ -1,9 +1,7 @@
 ---
 - name: Skel profiles included
   include_tasks: "{{ skel }}.yml"
-  loop:
-    - www
-    - xen
+  loop: "{{ skel_profiles }}"
   loop_control:
     loop_var: skel
     label: "{{ skel }}"

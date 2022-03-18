@@ -1,94 +1,86 @@
 ---
-- name: "Skel {{ skel }} directory present"
-  file:
-    path: "/usr/local/etc/skel.d/{{ skel }}"
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
-  tags:
-    - skel
+- name: www skel profile
+  block:
 
-- name: "Skel {{ skel }} files in place"
-  copy:
-    src: "files/skel.d/{{ skel }}/{{ file }}"
-    dest: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
-    owner: root
-    group: root
-    mode: 0600
-  loop:
-    - .bash_logout
-    - .bashrc
-    - .nanorc
-    - .profile
-    - .vimrc
-  loop_control:
-    loop_var: file
-    label: "{{ file }}"
-  tags:
-    - skel
+    - name: "Skel {{ skel }} directory present"
+      file:
+        path: "/usr/local/etc/skel.d/{{ skel }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
 
-- name: "Skel {{ skel }} private directories present"
-  file:
-    path: "/usr/local/etc/skel.d/{{ skel }}/{{ dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: 0700
-  loop:
-    - .ansible
-    - .cache
-    - .composer
-    - .config
-    - .console
-    - .drush
-    - .git
-    - .gnupg
-    - .local
-    - .mysql
-    - .mutt
-    - .npm
-    - .ssh
-    - .vim
-    - .wp-cli
-    - .yarn
-    - backups
-    - bin
-    - private
-    - tmp
-  loop_control:
-    loop_var: dir
-    label: "{{ dir }}"
-  tags:
-    - skel
+    - name: "Skel {{ skel }} private directories present"
+      file:
+        path: "/usr/local/etc/skel.d/{{ skel }}/{{ dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0700
+      loop:
+        - .ansible
+        - .cache
+        - .composer
+        - .config
+        - .console
+        - .drush
+        - .git
+        - .gnupg
+        - .local
+        - .mysql
+        - .mutt
+        - .npm
+        - .ssh
+        - .vim
+        - .wp-cli
+        - .yarn
+        - backups
+        - bin
+        - private
+        - tmp
+      loop_control:
+        loop_var: dir
+        label: "{{ dir }}"
 
-- name: "Skel {{ skel }} files touched"
-  file:
-    path: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
-    state: touch
-    owner: root
-    group: root
-    mode: 0600
-    modification_time: preserve
-    access_time: preserve
-  loop:
-    - .bash_history
-    - .mysql/history
-    - .selected_editor
-    - .yarnrc
-  loop_control:
-    loop_var: file
-    label: "{{ file }}"
-  tags:
-    - skel
+    - name: "Skel {{ skel }} files in place"
+      copy:
+        src: "files/skel.d/{{ skel }}/{{ file }}"
+        dest: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
+        owner: root
+        group: root
+        mode: 0600
+      loop:
+        - .bash_logout
+        - .bashrc
+        - .nanorc
+        - .myclirc
+        - .profile
+        - .vimrc
+        - .wp-cli/config.yml
+      loop_control:
+        loop_var: file
+        label: "{{ file }}"
 
-- name: "Skel {{ skel }} WP-CLI config in place"
-  copy:
-    src: "files/skel.d/{{ skel }}/.wp-cli/config.yml"
-    dest: "/usr/local/etc/skel.d/{{ skel }}/.wp-cli/config.yml"
-    owner: root
-    group: root
-    mode: 0600
+    - name: "Skel {{ skel }} files touched"
+      file:
+        path: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
+        state: touch
+        owner: root
+        group: root
+        mode: 0600
+        modification_time: preserve
+        access_time: preserve
+      loop:
+        - .bash_history
+        - .mycli-audit.log
+        - .mycli.log
+        - .mysql/history
+        - .selected_editor
+        - .yarnrc
+      loop_control:
+        loop_var: file
+        label: "{{ file }}"
+
   tags:
     - skel
 ...
