@@ -3,7 +3,7 @@
   block:
 
     - name: "Skel {{ skel }} directory present"
-      file:
+      ansible.builtin.file:
         path: "/usr/local/etc/skel.d/{{ skel }}"
         state: directory
         owner: root
@@ -11,7 +11,7 @@
         mode: "0755"
 
     - name: "Skel {{ skel }} files in place"
-      copy:
+      ansible.builtin.copy:
         src: "files/skel.d/{{ skel }}/{{ file }}"
         dest: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
         owner: root
@@ -24,7 +24,7 @@
         label: "{{ file }}"
 
     - name: "Skel {{ skel }} private directories present"
-      file:
+      ansible.builtin.file:
         path: "/usr/local/etc/skel.d/{{ skel }}/{{ dir }}"
         state: directory
         owner: root
@@ -37,7 +37,7 @@
         label: "{{ dir }}"
 
     - name: "Skel {{ skel }} files touched"
-      file:
+      ansible.builtin.file:
         path: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
         state: touch
         owner: root

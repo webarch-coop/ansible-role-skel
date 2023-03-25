@@ -1,6 +1,6 @@
 ---
 - name: Skel profiles included
-  include_tasks: "{{ skel }}.yml"
+  ansible.builtin.include_tasks: "{{ skel }}.yml"
   loop: "{{ skel_profiles }}"
   loop_control:
     loop_var: skel
