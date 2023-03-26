@@ -8,10 +8,10 @@ An Ansible role to add additional skel profiles to Debian and Ubuntu.
 
 See the [defaults/main.yml](defaults/main.yml) file for the default variables and the [meta/argument_specs.yml](meta/argument_specs.yml) file for the variable specification.
 
-| Variable name        | Default value    | Comment                      |
-|----------------------|------------------|------------------------------|
-| `skel`               | `true`           | Run the tasks in this role   |
-| `skel_profiles`      | `www`, `xen`     | The skel profiles to install |
+| Variable name        | Default value    | Comment                             |
+|----------------------|------------------|-------------------------------------|
+| `skel`               | `true`           | Run the tasks in this role.         |
+| `skel_profiles`      | `www`, `xen`     | A list of skel profiles to install. |
 
 ## Repository
 
