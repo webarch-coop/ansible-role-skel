@@ -1,10 +1,26 @@
+#
+# This file is part of the Webarchitects skel Ansible role.
+#
+# The Webarchitects Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects skel Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects skel Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-- name: Skel profiles included
-  ansible.builtin.include_tasks: "{{ skel }}.yml"
-  loop: "{{ skel_profiles }}"
-  loop_control:
-    loop_var: skel
-    label: "{{ skel }}"
+- name: Install skel profiles
+  block:
+
+    - name: Skel profiles included
+      ansible.builtin.include_tasks: "{{ skel }}.yml"
+      loop: "{{ skel_profiles }}"
+      loop_control:
+        loop_var: skel
+        label: "{{ skel }}"
+      when:
+        - skel_profiles is defined
+        - skel_profiles != []
+
+  when: skel | bool
   tags:
     - skel
 ...

@@ -1,3 +1,4 @@
+# Copyright 2019-2023 Chris Croome
 #
 # This file is part of the Webarchitects skel Ansible role.
 #
@@ -7,10 +8,19 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects skel Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-# https://ansible-lint.readthedocs.io/rules/
-skip_list:
-  - key-order[task]
-  - name[template]
-  - schema[meta]
-# vim: syntax=yaml
+argument_specs:
+  main:
+    author: Chris Croome
+    description: An Ansible role for installing installing additional skel profiles.
+    short_description: The main entry point for the skel role.
+    options:
+      skel:
+        type: bool
+        required: true
+        description: Run the tasks in this role.
+      skel_profiles:
+        type: list
+        elements: str
+        required: false
+        description: Skel profiles to install.
 ...
