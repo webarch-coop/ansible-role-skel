@@ -10,7 +10,7 @@
 - name: Skel profile xen
   block:
 
-    - name: "Skel {{ skel }} directory present"
+    - name: "Skel directory present for {{ skel }}"
       ansible.builtin.file:
         path: "/usr/local/etc/skel.d/{{ skel }}"
         state: directory
@@ -18,22 +18,22 @@
         group: root
         mode: "0755"
 
-    - name: "Skel {{ skel }} files in place"
+    - name: "Skel files in place for {{ skel }}"
       ansible.builtin.copy:
-        src: "files/skel.d/{{ skel }}/{{ file }}"
-        dest: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
+        src: "files/skel.d/{{ skel }}/{{ skel_file }}"
+        dest: "/usr/local/etc/skel.d/{{ skel }}/{{ skel_file }}"
         owner: root
         group: root
         mode: "0600"
       loop:
         - .screenrc
       loop_control:
-        loop_var: file
-        label: "{{ file }}"
+        loop_var: skel_file
+        label: "{{ skel_file }}"
 
-    - name: "Skel {{ skel }} private directories present"
+    - name: "Skel private directories present for {{ skel }}"
       ansible.builtin.file:
-        path: "/usr/local/etc/skel.d/{{ skel }}/{{ dir }}"
+        path: "/usr/local/etc/skel.d/{{ skel }}/{{ skel_dir }}"
         state: directory
         owner: root
         group: root
@@ -41,12 +41,12 @@
       loop:
         - .ssh
       loop_control:
-        loop_var: dir
-        label: "{{ dir }}"
+        loop_var: skel_dir
+        label: "{{ skel_dir }}"
 
-    - name: "Skel {{ skel }} files touched"
+    - name: "Skel files touched for {{ skel }}"
       ansible.builtin.file:
-        path: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
+        path: "/usr/local/etc/skel.d/{{ skel }}/{{ skel_file }}"
         state: touch
         owner: root
         group: root
@@ -56,8 +56,8 @@
       loop:
         - .xen-shell
       loop_control:
-        loop_var: file
-        label: "{{ file }}"
+        loop_var: skel_file
+        label: "{{ skel_file }}"
 
   tags:
     - skel

@@ -111,23 +111,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# set PATH so it includes user's .local private bin if it exists
-if [[ -d "${HOME}/.local/bin" && ":$PATH:" != *":${HOME}/.local/bin:"* ]]
-then
-  export PATH="${HOME}/.local/bin:${PATH}"
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [[ -d "${HOME}/bin" && ":$PATH:" != *":${HOME}/bin:"* ]]
-then
-  export PATH="${HOME}/bin:${PATH}"
-fi
-
-# set MYSQL_HISTFILE when a directory for MySQL history file exists
-if [[ -d "${HOME}/.mysql" ]]
-then
-  export MYSQL_HISTFILE="${HOME}/.mysql/history"
-fi
-
-# vim: syntax=bash

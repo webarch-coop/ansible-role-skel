@@ -10,7 +10,7 @@
 - name: Skel profile www
   block:
 
-    - name: "Skel {{ skel }} directory present"
+    - name: "Skel directory present {{ skel }}"
       ansible.builtin.file:
         path: "/usr/local/etc/skel.d/{{ skel }}"
         state: directory
@@ -18,9 +18,9 @@
         group: root
         mode: "0755"
 
-    - name: "Skel {{ skel }} private directories present"
+    - name: "Skel private directories present {{ skel }}"
       ansible.builtin.file:
-        path: "/usr/local/etc/skel.d/{{ skel }}/{{ dir }}"
+        path: "/usr/local/etc/skel.d/{{ skel }}/{{ skel_dir }}"
         state: directory
         owner: root
         group: root
@@ -47,31 +47,31 @@
         - private
         - tmp
       loop_control:
-        loop_var: dir
-        label: "{{ dir }}"
+        loop_var: skel_dir
+        label: "{{ skel_dir }}"
 
-    - name: "Skel {{ skel }} files in place"
+    - name: "Skel files in place {{ skel }}"
       ansible.builtin.copy:
-        src: "files/skel.d/{{ skel }}/{{ file }}"
-        dest: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
+        src: "files/skel.d/{{ skel }}/{{ skel_file }}"
+        dest: "/usr/local/etc/skel.d/{{ skel }}/{{ skel_file }}"
         owner: root
         group: root
         mode: "0600"
       loop:
         - .bash_logout
+        - .bash_profile
         - .bashrc
         - .nanorc
         - .myclirc
-        - .profile
         - .vimrc
         - .wp-cli/config.yml
       loop_control:
-        loop_var: file
-        label: "{{ file }}"
+        loop_var: skel_file
+        label: "{{ skel_file }}"
 
-    - name: "Skel {{ skel }} files touched"
+    - name: "Skel files touched for {{ skel }}"
       ansible.builtin.file:
-        path: "/usr/local/etc/skel.d/{{ skel }}/{{ file }}"
+        path: "/usr/local/etc/skel.d/{{ skel }}/{{ skel_file }}"
         state: touch
         owner: root
         group: root
@@ -87,8 +87,18 @@
         - .selected_editor
         - .yarnrc
       loop_control:
-        loop_var: file
-        label: "{{ file }}"
+        loop_var: skel_file
+        label: "{{ skel_file }}"
+
+    - name: "Skel files absent for {{ skel }}"
+      ansible.builtin.file:
+        path: "/usr/local/etc/skel.d/{{ skel }}/{{ skel_file }}"
+        state: absent
+      loop:
+        - .profile
+      loop_control:
+        loop_var: skel_file
+        label: "{{ skel_file }}"
 
   tags:
     - skel
