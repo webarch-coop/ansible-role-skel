@@ -7,6 +7,7 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects skel Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
+skel: true
 skel_profiles:
   - www
   - xen

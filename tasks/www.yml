@@ -10,17 +10,17 @@
 - name: Skel profile www
   block:
 
-    - name: "Skel directory present {{ skel }}"
+    - name: "Skel directory present {{ skel_profile }}"
       ansible.builtin.file:
-        path: "/usr/local/etc/skel.d/{{ skel }}"
+        path: "/usr/local/etc/skel.d/{{ skel_profile }}"
         state: directory
         owner: root
         group: root
         mode: "0755"
 
-    - name: "Skel private directories present {{ skel }}"
+    - name: "Skel private directories present {{ skel_profile }}"
       ansible.builtin.file:
-        path: "/usr/local/etc/skel.d/{{ skel }}/{{ skel_dir }}"
+        path: "/usr/local/etc/skel.d/{{ skel_profile }}/{{ skel_dir }}"
         state: directory
         owner: root
         group: root
@@ -50,10 +50,10 @@
         loop_var: skel_dir
         label: "{{ skel_dir }}"
 
-    - name: "Skel files in place {{ skel }}"
+    - name: "Skel files in place {{ skel_profile }}"
       ansible.builtin.copy:
-        src: "files/skel.d/{{ skel }}/{{ skel_file }}"
-        dest: "/usr/local/etc/skel.d/{{ skel }}/{{ skel_file }}"
+        src: "files/skel.d/{{ skel_profile }}/{{ skel_file }}"
+        dest: "/usr/local/etc/skel.d/{{ skel_profile }}/{{ skel_file }}"
         owner: root
         group: root
         mode: "0600"
@@ -69,9 +69,9 @@
         loop_var: skel_file
         label: "{{ skel_file }}"
 
-    - name: "Skel files touched for {{ skel }}"
+    - name: "Skel files touched for {{ skel_profile }}"
       ansible.builtin.file:
-        path: "/usr/local/etc/skel.d/{{ skel }}/{{ skel_file }}"
+        path: "/usr/local/etc/skel.d/{{ skel_profile }}/{{ skel_file }}"
         state: touch
         owner: root
         group: root
@@ -90,9 +90,9 @@
         loop_var: skel_file
         label: "{{ skel_file }}"
 
-    - name: "Skel files absent for {{ skel }}"
+    - name: "Skel files absent for {{ skel_profile }}"
       ansible.builtin.file:
-        path: "/usr/local/etc/skel.d/{{ skel }}/{{ skel_file }}"
+        path: "/usr/local/etc/skel.d/{{ skel_profile }}/{{ skel_file }}"
         state: absent
       loop:
         - .profile
