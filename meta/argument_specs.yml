@@ -23,4 +23,7 @@ argument_specs:
         elements: str
         required: false
         description: Skel profiles to install.
+        choices:
+          - www
+          - xen
 ...
