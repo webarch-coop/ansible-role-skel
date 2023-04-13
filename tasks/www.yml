@@ -79,6 +79,7 @@
         modification_time: preserve
         access_time: preserve
       loop:
+        - .bash_completion
         - .bash_history
         - .mycli-audit.log
         - .mycli-history
