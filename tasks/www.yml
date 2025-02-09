@@ -1,3 +1,4 @@
+# Copyright 2019-2025 Chris Croome
 #
 # This file is part of the Webarchitects skel Ansible role.
 #
@@ -35,8 +36,9 @@
         - .git
         - .gnupg
         - .local
-        - .mysql
+        - .moosh
         - .mutt
+        - .mysql
         - .npm
         - .ssh
         - .terminfo

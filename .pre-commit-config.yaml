@@ -1,3 +1,4 @@
+# Copyright 2019-2025 Chris Croome
 #
 # This file is part of the Webarchitects skel Ansible role.
 #
@@ -7,11 +8,41 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects skel Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-# https://yamllint.readthedocs.io/en/stable/integration.html
-# https://github.com/adrienverge/yamllint/tags
 repos:
+  # https://github.com/adrienverge/yamllint/tags
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.30.0
+    rev: v1.35.1
     hooks:
       - id: yamllint
+        name: YAML Lint
+  # https://github.com/aristanetworks/j2lint/releases
+  - repo: https://github.com/aristanetworks/j2lint.git
+    rev: v1.1.0
+    hooks:
+      - id: j2lint
+        name: Jinja2-Linter
+        args:
+          - templates
+  # https://github.com/jackdewinter/pymarkdown/releases
+  - repo: https://github.com/jackdewinter/pymarkdown.git
+    rev: v0.9.26
+    hooks:
+      - id: pymarkdown
+        name: Markdown Lint
+        args:
+          - scan
+          - README.md
+          - VARIABLES.md
+  # https://github.com/ansible/ansible-lint/releases
+  - repo: https://github.com/ansible/ansible-lint.git
+    rev: v24.12.2
+    hooks:
+      - id: ansible-lint
+        name: Ansible Lint
+        language: python
+        additional_dependencies:
+         # https://github.com/kellyjonbrazil/jc/releases
+          - jc==1.25.4
+          # https://github.com/jmespath/jmespath.py/tags
+          - jmespath==1.0.1
 ...
