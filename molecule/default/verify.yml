@@ -1,0 +1,66 @@
+# Copyright 2019-2025 Chris Croome
+#
+# This file is part of the Webarchitects skel Ansible role.
+#
+# The Webarchitects Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects skel Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects skel Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+- name: Verify as root
+  # become: true
+  connection: local
+  # gather_facts: true
+  hosts:
+    - localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+
+    - name: Check Skel dirs for www profile
+      ansible.builtin.stat:
+        path: "{{ molecule_path }}"
+      loop:
+        - /usr/local/etc/skel.d/www/.ansible/tmp
+        - /usr/local/etc/skel.d/www/.cache
+        - /usr/local/etc/skel.d/www/.composer
+        - /usr/local/etc/skel.d/www/.config
+        - /usr/local/etc/skel.d/www/.console
+        - /usr/local/etc/skel.d/www/.drush
+        - /usr/local/etc/skel.d/www/.git
+        - /usr/local/etc/skel.d/www/.gnupg
+        - /usr/local/etc/skel.d/www/.local
+        - /usr/local/etc/skel.d/www/.moosh
+        - /usr/local/etc/skel.d/www/.mutt
+        - /usr/local/etc/skel.d/www/.mysql
+        - /usr/local/etc/skel.d/www/.npm
+        - /usr/local/etc/skel.d/www/.ssh
+        - /usr/local/etc/skel.d/www/.terminfo
+        - /usr/local/etc/skel.d/www/.vim
+        - /usr/local/etc/skel.d/www/.wp-cli
+        - /usr/local/etc/skel.d/www/.yarn
+        - /usr/local/etc/skel.d/www/bin
+        - /usr/local/etc/skel.d/www/private
+        - /usr/local/etc/skel.d/www/tmp
+      loop_control:
+        loop_var: molecule_path
+      register: molecule_www_dir_paths
+
+    - name: Debug molecule_www_dir_paths
+      ansible.builtin.debug:
+        var: molecule_www_dir_paths
+
+    - name: Set some facts for the results using JMESPath
+      ansible.builtin.set_fact:
+        molecule_www_dir_paths_state: "{{ molecule_www_dir_paths | community.general.json_query('results[*].{path: invocation.module_args.path, exists: stat.exists}') }}"
+        molecule_www_dir_paths_exists: "{{ molecule_www_dir_paths | community.general.json_query('results[?stat.exists].stat.path') }}"
+
+    - name: Debug molecule_www_dir_paths_state
+      ansible.builtin.debug:
+        var: molecule_www_dir_paths_state
+
+    - name: Debug molecule_www_dir_paths_exists
+      ansible.builtin.debug:
+        var: molecule_www_dir_paths_exists
+...

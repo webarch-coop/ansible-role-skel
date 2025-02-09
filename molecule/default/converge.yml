@@ -8,20 +8,31 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects skel Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-dependency:
-  name: galaxy
-platforms:
-  - name: instance
-provisioner:
-  name: ansible
-  config_options:
-    defaults:
-      ansible_managed: Ansible managed
-      duplicate_dict_key: error
-      error_on_undefined_vars: true
-      inject_facts_as_vars: false
-  options:
-    D: true
-verifier:
-  name: ansible
+- name: Run as root
+  # become: true
+  connection: local
+  # gather_facts: true
+  hosts:
+    - localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+
+    - name: Debug ansible_facts.effective_user_id
+      ansible.builtin.debug:
+        var: ansible_facts.effective_user_id
+
+    - name: Debug ansible_facts.user_id
+      ansible.builtin.debug:
+        var: ansible_facts.user_id
+
+    - name: Debug ansible_facts.user_dir
+      ansible.builtin.debug:
+        var: ansible_facts.user_dir
+
+    - name: Include Skel role as root
+      ansible.builtin.include_role:
+        name: skel
+      vars:  # noqa var-naming[no-role-prefix]
+        skel: true
 ...
