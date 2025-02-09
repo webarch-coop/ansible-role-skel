@@ -50,6 +50,7 @@
     - name: Debug molecule_www_dir_paths
       ansible.builtin.debug:
         var: molecule_www_dir_paths
+        verbosity: 1
 
     - name: Set some facts for the results using JMESPath
       ansible.builtin.set_fact:
