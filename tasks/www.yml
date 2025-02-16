@@ -87,7 +87,11 @@
         - .mycli-history
         - .mycli.log
         - .mysql/history
+        - .rediscli_history
+        - .redisclirc
         - .selected_editor
+        - .valkeycli_history
+        - .valkeyclirc
         - .yarnrc
       loop_control:
         loop_var: skel_file
