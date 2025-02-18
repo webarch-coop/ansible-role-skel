@@ -19,17 +19,6 @@
         group: root
         mode: "0755"
 
-    # Why is the .profile deleted?
-    - name: "Skel files absent for {{ skel_profile }}"
-      ansible.builtin.file:
-        path: "/usr/local/etc/skel.d/{{ skel_profile }}/{{ skel_file }}"
-        state: absent
-      loop:
-        - .profile
-      loop_control:
-        loop_var: skel_file
-        label: "{{ skel_file }}"
-
     - name: "Skel private directories present {{ skel_profile }}"
       ansible.builtin.file:
         path: "/usr/local/etc/skel.d/{{ skel_profile }}/{{ skel_dir }}"
