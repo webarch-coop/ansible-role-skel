@@ -1,30 +1,38 @@
 # Ansible managed
+# ~/.bash_profile
 
-# include .bashrc if it exists
-if [[ -f "${HOME}/.bashrc" ]]
+# Source other bash config files when BASH_VERSION is defined and they exist
+if [[ -n "${BASH_VERSION}" ]]
 then
-  source  "${HOME}/.bashrc"
+  if [[ -f "${HOME}/.bashrc" ]]
+  then
+    . "${HOME}/.bashrc"
+  fi
+  if [[ -f "${HOME}/.bash_aliases" ]]
+  then
+    . "${HOME}/.bash_aliases"
+  fi
 fi
 
-# set PATH so it includes user's ~/bin if present
+# Set PATH so it includes ~/bin if present
 if [[ -d "${HOME}/bin" ]]
 then
   export PATH="${HOME}/bin:${PATH}"
 fi
 
-# set PATH so it includes user's ~/.local/bin if present
+# Set PATH so it includes ~/.local/bin if present
 if [[ -d "${HOME}/.local/bin" ]]
 then
   export PATH="${HOME}/.local/bin:${PATH}"
 fi
 
-# set MYSQL_HISTFILE if a directory for MySQL history is present
+# Set MYSQL_HISTFILE if a directory for MySQL history is present
 if [[ -d "${HOME}/.mysql" ]]
 then
   export MYSQL_HISTFILE="${HOME}/.mysql/history"
 fi
 
-# set TMPDIR, TMP and TEMP if ~/tmp exists
+# Set TMPDIR, TMP and TEMP if ~/tmp exists
 if [[ -d "${HOME}/tmp" ]]
 then
   export TMPDIR="${HOME}/tmp"
