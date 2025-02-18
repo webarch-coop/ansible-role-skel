@@ -28,6 +28,7 @@
         mode: "0700"
       loop:
         - .ansible/tmp
+        - .aws
         - .cache
         - .composer
         - .config
@@ -81,12 +82,14 @@
         modification_time: preserve
         access_time: preserve
       loop:
+        - .bash_aliases
         - .bash_completion
         - .bash_history
         - .mycli-audit.log
         - .mycli-history
         - .mycli.log
         - .mysql/history
+        - .profile
         - .rediscli_history
         - .redisclirc
         - .selected_editor
