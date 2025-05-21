@@ -23,3 +23,5 @@ syntax on
 "set modeline
 "set modelines=1
 
+" viminfo path
+set viminfo+=n~/.vim/viminfo
